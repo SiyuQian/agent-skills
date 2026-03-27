@@ -6,14 +6,14 @@ A curated collection of Claude Code skills for daily development workflows — i
 
 **Step 1:** Add the marketplace
 
-```bash
-claude plugin marketplace add SiyuQian/agent-skills
+```
+/plugin marketplace add SiyuQian/agent-skills
 ```
 
 **Step 2:** Install the plugin
 
-```bash
-claude plugin install siyu@agentskill-marketplace
+```
+/plugin install siyu@agentskill-marketplace
 ```
 
 After installation, the skills are available in all your Claude Code sessions.
