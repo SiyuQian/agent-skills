@@ -34,7 +34,9 @@ This repo is an installable Claude Code plugin. To install:
 
 Or add it as a local plugin by cloning the repo and pointing Claude Code at the directory.
 
-Custom skills are in the `skills/` directory. More coming soon.
+### Available Skills
+
+- **create-pr-or-mr** — Create pull requests (GitHub) or merge requests (GitLab) with well-structured descriptions. Auto-detects platform, uses existing templates when available, and generates relevant sections based on the actual changes.
 
 ## Contributing
 
