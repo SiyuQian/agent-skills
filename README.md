@@ -36,7 +36,7 @@ Or add it as a local plugin by cloning the repo and pointing Claude Code at the 
 
 ### Available Skills
 
-- **create-pr-or-mr** — Create pull requests (GitHub) or merge requests (GitLab) with well-structured descriptions. Auto-detects platform, uses existing templates when available, and generates relevant sections based on the actual changes.
+- **pr-or-mr** — Create and update pull requests (GitHub) or merge requests (GitLab) with well-structured descriptions. Auto-detects platform, uses existing templates, generates relevant sections based on the actual diff, and handles PR updates and draft→ready transitions.
 
 ## Contributing
 

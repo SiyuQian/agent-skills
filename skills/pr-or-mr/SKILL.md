@@ -1,10 +1,11 @@
 ---
-name: create-pr-or-mr
+name: pr-or-mr
 description: >
-  Use when the user wants to create a pull request or merge request, open a PR/MR,
-  push changes for review, or ship a branch. Triggers on: "create pr", "open pull request",
-  "make a pr", "submit mr", "merge request", "push for review", "ready for review",
-  "/pr", "open mr", "ship it", "send for review", "let's get this reviewed".
+  Use when the user wants to create or update a pull request or merge request,
+  open a PR/MR, push changes for review, update a PR description, or mark a draft
+  as ready. Triggers on: "create pr", "open pull request", "make a pr", "submit mr",
+  "merge request", "push for review", "ready for review", "/pr", "open mr", "ship it",
+  "send for review", "update the pr", "update the description", "mark as ready".
 license: Complete terms in LICENSE.txt
 ---
 
@@ -15,12 +16,14 @@ must come from code you read, not from branch names or assumptions.
 
 ## Quick Reference
 
-| GitHub | GitLab |
-|--------|--------|
-| `gh pr create --title "..." --body "..."` | `glab mr create --title "..." --description "..."` |
-| `--base <branch>` | `--target-branch <branch>` |
-| `--draft` | `--draft` |
-| Push: `git push -u origin HEAD` | Push: `git push -u origin HEAD` |
+| Action | GitHub | GitLab |
+|--------|--------|--------|
+| Create | `gh pr create --title "..." --body "..."` | `glab mr create --title "..." --description "..."` |
+| Update | `gh pr edit <number> --title "..." --body "..."` | `glab mr update <number> --title "..." --description "..."` |
+| Mark ready | `gh pr ready <number>` | `glab mr update <number> --draft=false` |
+| Base branch | `--base <branch>` | `--target-branch <branch>` |
+| Draft | `--draft` | `--draft` |
+| Push | `git push -u origin HEAD` | `git push -u origin HEAD` |
 
 ## Preflight Checks
 
@@ -31,13 +34,14 @@ git remote get-url origin          # detect platform (github.com → gh, gitlab.
 git rev-parse --abbrev-ref HEAD    # current branch
 git status                         # uncommitted changes?
 git log <base>..HEAD --oneline     # commits ahead of base
+gh pr list --head <branch>         # existing PR? (or glab mr list --source-branch)
 ```
 
 **Stop and ask the user if:**
 - Current branch is `main`/`master` — you cannot PR from main into main. Ask if they want to create a feature branch first. **Never** use `git reset`, `git push --force`, or any history rewriting on main — not even as an "option." If the work is already pushed to main, tell the user the PR opportunity has passed for this change.
 - There are uncommitted changes — ask if they want to commit first or exclude them.
 - There are no commits ahead of base — nothing to PR.
-- There's already an open PR for this branch — ask if they want to update it instead (`gh pr edit`).
+- There's already an open PR for this branch — switch to **update flow** (see below).
 
 ## Read the Diff (Required)
 
@@ -99,7 +103,7 @@ If no project template exists, **read ONE template** based on what you found in 
 - Leave "For Reviewers (human)" items unchecked — those are for humans
 - For bug fixes, describe the bug, root cause, and fix separately
 
-**Show the draft to the user before creating.** Let them edit the title and body.
+**Show the draft to the user before creating or updating.** Let them edit the title and body.
 
 ## Create and Report
 
@@ -109,6 +113,35 @@ Push the branch if needed, create the PR/MR, and share the URL.
 git push -u origin HEAD                    # if not already pushed
 gh pr create --title "..." --body "..."    # GitHub
 glab mr create --title "..." --description "..."  # GitLab
+```
+
+## Update an Existing PR/MR
+
+When preflight finds an open PR for the current branch, or the user explicitly asks to update:
+
+**1. Read the current PR state:**
+```bash
+gh pr view <number>                # GitHub — see current title, body, status
+glab mr view <number>              # GitLab
+```
+
+**2. Read the full diff** (same as creating — the description must reflect ALL commits, not just new ones).
+
+**3. Decide: preserve or rewrite.**
+- **New commits added** to an existing PR → rewrite the full description to cover all commits. Don't just append — re-read the complete diff and write a cohesive description.
+- **Reviewer feedback** on description → address the specific feedback while keeping the rest.
+- **Draft → Ready** → update description if it was a WIP placeholder, then mark ready.
+
+**4. Show draft to user, then execute:**
+```bash
+gh pr edit <number> --title "..." --body "..."    # GitHub
+glab mr update <number> --title "..." --description "..."  # GitLab
+```
+
+**5. Mark ready (if transitioning from draft):**
+```bash
+gh pr ready <number>               # GitHub
+glab mr update <number> --draft=false  # GitLab
 ```
 
 ## Common Mistakes
@@ -122,7 +155,8 @@ glab mr create --title "..." --description "..."  # GitLab
 | Generic bug fix description ("fix bug") | Describe the bug symptom, root cause, and fix separately |
 | Leaving irrelevant sections as "N/A" | Remove the section entirely |
 | Force-pushing main to create a retroactive branch | Never offer this as an option. If work is on main and pushed, the PR opportunity has passed |
-| Creating duplicate PR for branch with existing PR | Check `gh pr list --head <branch>` first |
+| Creating duplicate PR for branch with existing PR | Check `gh pr list --head <branch>` first — update instead |
+| Appending to PR description instead of rewriting | Re-read the full diff and write a cohesive description covering all commits |
 
 ## Tips
 
