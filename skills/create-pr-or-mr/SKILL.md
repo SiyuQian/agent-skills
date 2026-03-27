@@ -62,16 +62,26 @@ From the diff, determine:
 
 ## Find the Template
 
-Check for existing templates:
+Check for existing project templates first:
 
 **GitHub:** `.github/pull_request_template.md`, `.github/PULL_REQUEST_TEMPLATE.md`, `docs/pull_request_template.md`, `PULL_REQUEST_TEMPLATE.md`, or files in `.github/PULL_REQUEST_TEMPLATE/`
 
 **GitLab:** `.gitlab/merge_request_templates/Default.md` or files in `.gitlab/merge_request_templates/`
 
-If a template exists, use it. Fill it in based on the diff you read. Omit sections that
-aren't relevant — remove the heading entirely, don't leave "N/A" placeholders.
+If a project template exists, use it. Fill it in based on the diff. Remove irrelevant sections entirely.
 
-If no template exists, see [default-template.md](default-template.md).
+If no project template exists, **read ONE template** based on what you found in the diff:
+
+| Changes touch frontend? | Bug fix or feature? | Read this file |
+|---|---|---|
+| Yes | Feature | [templates/frontend-feature.md](templates/frontend-feature.md) |
+| Yes | Bug fix | [templates/frontend-bugfix.md](templates/frontend-bugfix.md) |
+| No | Feature | [templates/backend-feature.md](templates/backend-feature.md) |
+| No | Bug fix | [templates/backend-bugfix.md](templates/backend-bugfix.md) |
+| Both | Either | Read both relevant templates, combine sections |
+| Docs/config only | — | Use just Description + Review Guide, no template needed |
+
+**Only read the template you need.** Do not read all four.
 
 ## Write the Description
 
