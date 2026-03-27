@@ -1,46 +1,43 @@
-# Awesome Agent Skills
+# Agent Skills
 
-A curated list of skills and plugins for [Claude Code](https://claude.ai/code) — plus an installable plugin with custom skills for daily development workflows.
+A curated collection of Claude Code skills for daily development workflows — installable as a marketplace plugin.
 
-## Contents
+## Installation
 
-- [Frontend & Design](#frontend--design)
-- [Workflow & Process](#workflow--process)
-- [Spec & Planning](#spec--planning)
-- [Custom Skills (This Plugin)](#custom-skills-this-plugin)
-- [Contributing](#contributing)
-
-## Skills & Plugins
-
-### Frontend & Design
-
-- [impeccable](https://github.com/pbakaus/impeccable) — Expert frontend design skill with 17 commands for auditing, polishing, and steering UI quality
-
-### Workflow & Process
-
-- [superpowers](https://github.com/obra/superpowers) — Brainstorming, TDD, debugging, planning workflows
-
-### Spec & Planning
-
-- [OpenSpec](https://github.com/Fission-AI/OpenSpec) — Spec-driven development
-
-## Custom Skills (This Plugin)
-
-This repo is an installable Claude Code plugin. To install:
-
-```
-/plugin install agent-skills
+```bash
+claude marketplace add SiyuQian/agent-skills
 ```
 
-Or add it as a local plugin by cloning the repo and pointing Claude Code at the directory.
+This registers the plugin as `siyu@agentskill-marketplace`. After installation, the skills are available in all your Claude Code sessions.
 
-### Available Skills
+## Available Skills
 
-- **pr-or-mr** — Create and update pull requests (GitHub) or merge requests (GitLab) with well-structured descriptions. Auto-detects platform, uses existing templates, generates relevant sections based on the actual diff, and handles PR updates and draft→ready transitions.
+### pr-or-mr
+
+Create and update pull requests (GitHub) or merge requests (GitLab) with well-structured descriptions.
+
+- Auto-detects platform (GitHub / GitLab)
+- Reads the actual diff before writing — no guessing from branch names
+- Uses existing project PR/MR templates when available
+- Falls back to built-in templates (frontend/backend × feature/bugfix)
+- Generates a Review Guide section for reviewers
+- Handles PR updates and draft → ready transitions
+
+**Triggers on:** "create pr", "open pull request", "submit mr", "push for review", "update the pr", "mark as ready", "/pr", "ship it", and more.
+
+## Awesome Skills & Plugins
+
+Other great Claude Code skills and plugins worth checking out:
+
+| Category | Plugin | Description |
+|----------|--------|-------------|
+| Frontend & Design | [impeccable](https://github.com/pbakaus/impeccable) | Expert frontend design skill with 17 commands for auditing, polishing, and steering UI quality |
+| Workflow & Process | [superpowers](https://github.com/obra/superpowers) | Brainstorming, TDD, debugging, planning workflows |
+| Spec & Planning | [OpenSpec](https://github.com/Fission-AI/OpenSpec) | Spec-driven development |
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add skills to the awesome list or contribute custom skills.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add skills or improve existing ones.
 
 ## License
 
