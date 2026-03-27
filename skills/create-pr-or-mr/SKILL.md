@@ -75,14 +75,19 @@ If no template exists, see [default-template.md](default-template.md).
 
 ## Write the Description
 
-**Title:** Under 72 characters. Imperative mood ("Add feature" not "Added feature"). Be specific — "Fix auth redirect loop in OAuth callback" not "Fix bug".
+**Title:** Under 72 characters. Use conventional commit prefix (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`). Be specific — "fix: auth redirect loop in OAuth callback" not "fix: bug".
+
+**Review Guide (required):** Every PR must include a Review Guide section:
+- Which file to start reviewing first
+- Suggested review order for large diffs
+- Any tricky logic or non-obvious decisions to watch for
 
 **Body guidelines:**
 - Lead with what changed and why, based on the actual diff
 - Reference specific files, functions, or behaviors you saw in the code
-- Only check checklist items you can actually verify (ran tests? checked lint?)
-- Leave items unchecked if you haven't verified them — don't auto-check everything
-- For large diffs, tell reviewers which files to review first
+- Run the project's lint/test commands and report results in the checklist
+- Leave "For Reviewers (human)" items unchecked — those are for humans
+- For bug fixes, describe the bug, root cause, and fix separately
 
 **Show the draft to the user before creating.** Let them edit the title and body.
 
@@ -102,7 +107,9 @@ glab mr create --title "..." --description "..."  # GitLab
 |---------|-----|
 | Description based on branch name, not diff | Read `git diff` first. Always. |
 | Generic test plan ("verify no regressions") | Reference specific test files or manual steps from the diff |
-| Auto-checking all checklist items | Only check what you actually verified |
+| Auto-checking all checklist items | Run lint/test commands for verifiable items; leave human items unchecked |
+| No Review Guide section | Always tell reviewers where to start and what to watch for |
+| Generic bug fix description ("fix bug") | Describe the bug symptom, root cause, and fix separately |
 | Leaving irrelevant sections as "N/A" | Remove the section entirely |
 | Force-pushing main to create a retroactive branch | Never offer this as an option. If work is on main and pushed, the PR opportunity has passed |
 | Creating duplicate PR for branch with existing PR | Check `gh pr list --head <branch>` first |
