@@ -1,61 +1,160 @@
-# Default PR/MR Template
+# Default PR/MR Templates
 
-Use this when no project template exists. **Only include sections relevant to the change** —
-remove sections entirely if they don't apply.
+Use when no project template exists. Pick the template that matches your change,
+then **remove any section that doesn't apply** — don't leave empty headers.
+
+PR title carries the type: use conventional commits (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`).
+
+---
+
+## Frontend Templates
+
+### Frontend — Feature
 
 ```markdown
 ## Description
 
-{What this change does and why — from the actual diff, not assumptions}
+{What this feature adds and why, based on the actual diff}
 
-Closes: #{issue_number}
+## Review Guide
 
-## Type of Change
+**Start here:** {The most important file/component to review first}
 
-* [ ] Bug fix
-* [ ] New feature
-* [ ] Refactor
-* [ ] Performance improvement
-* [ ] Documentation update
-* [ ] Breaking change
+{Suggested review order, any tricky logic to watch for}
 
-## How Has This Been Tested?
+## Visual Changes
 
-{Reference specific test files added/modified, or manual verification steps}
+Before:
 
-## Screenshots / Demo
+After:
 
-{Only for visual changes — remove this section entirely for backend/library/infra/docs}
+## Verification
 
-## Checklist
+- [ ] `npm run lint` / `npx eslint .` passes
+- [ ] `npm test` / test suite passes
+- [ ] Tested in browser: {specific pages/flows to check}
+- [ ] Responsive: tested at mobile, tablet, desktop widths
+- [ ] Accessibility: keyboard navigation and screen reader tested
 
-* [ ] I have performed a self-review of my code
-* [ ] My code follows the project's coding standards
-* [ ] I have added tests where necessary
-* [ ] All tests pass locally
-* [ ] Documentation has been updated if required
-* [ ] This PR is ready for review
+## For Reviewers (human)
+
+- [ ] Self-review of the code
+- [ ] Design matches spec/mockup
+```
+
+### Frontend — Bug Fix
+
+```markdown
+## Description
+
+**Bug:** {What was broken — specific symptom, not "it didn't work"}
+
+**Cause:** {Root cause found in the diff}
+
+**Fix:** {What the code change does to resolve it}
+
+## Review Guide
+
+**Start here:** {The file with the core fix}
+
+{Any related files that changed, why they needed to change too}
+
+## Verification
+
+- [ ] `npm run lint` / `npx eslint .` passes
+- [ ] `npm test` / test suite passes
+- [ ] Bug no longer reproduces: {exact steps to verify}
+- [ ] No visual regressions in related pages
+
+## For Reviewers (human)
+
+- [ ] Self-review of the code
+```
+
+---
+
+## Backend / Infra Templates
+
+### Backend — Feature
+
+```markdown
+## Description
+
+{What this feature adds and why, based on the actual diff}
+
+## Review Guide
+
+**Start here:** {The most important file/module to review first}
+
+{Suggested review order, any tricky logic or architectural decisions to watch for}
+
+## Verification
+
+- [ ] `make test` / `go test ./...` / `pytest` passes
+- [ ] `make lint` / linter passes
+- [ ] API tested: {specific endpoints or commands to exercise}
+- [ ] Migration tested (if applicable): {migration steps}
 
 ## Additional Notes
 
-{Migration steps, deploy dependencies, follow-up work — remove if nothing to say}
+{Deploy dependencies, feature flags, environment variables, follow-up work — remove if nothing}
+
+## For Reviewers (human)
+
+- [ ] Self-review of the code
+- [ ] Checked for security implications
 ```
 
-## Section Rules
+### Backend — Bug Fix
 
-| Section | Include when | Remove when |
-|---------|-------------|-------------|
-| Description | Always | Never |
-| Closes: line | Related issue exists | No linked issue |
-| Type of Change | Always | Never |
-| How Has This Been Tested? | Functional changes | Docs-only or config changes |
-| Screenshots / Demo | UI, visual, or CLI output changes | Backend, library, infra, docs |
-| Checklist | Always | Never |
-| Additional Notes | Migration, deploy notes, or context | Nothing extra |
+```markdown
+## Description
 
-## Checklist Honesty
+**Bug:** {What was broken — specific symptom}
 
-Only check (`[x]`) items you have actually verified:
-- Did you run the tests? Then check "All tests pass locally"
-- Did you not run the tests? Leave it unchecked
-- Pre-checking everything is dishonest and defeats the purpose
+**Cause:** {Root cause found in the diff}
+
+**Fix:** {What the code change does to resolve it}
+
+## Review Guide
+
+**Start here:** {The file with the core fix}
+
+## Verification
+
+- [ ] `make test` / `go test ./...` / `pytest` passes
+- [ ] `make lint` / linter passes
+- [ ] Bug no longer reproduces: {exact steps to verify}
+- [ ] No regressions in related functionality
+
+## For Reviewers (human)
+
+- [ ] Self-review of the code
+```
+
+---
+
+## Template Selection
+
+| Change Type | Frontend touches? | Template |
+|---|---|---|
+| New feature | Yes | Frontend — Feature |
+| New feature | No | Backend — Feature |
+| Bug fix | Yes | Frontend — Bug Fix |
+| Bug fix | No | Backend — Bug Fix |
+| Mixed (frontend + backend) | Both | Combine relevant sections from both |
+| Docs / config only | Neither | Use just Description + Review Guide |
+
+## Checklist Rules
+
+**Verifiable items** (agent should run the command and fill in result):
+- Lint, test, build commands — run them and report pass/fail
+- If a command fails, leave unchecked and note the failure
+
+**Human items** (leave for the reviewer):
+- Always unchecked — the agent cannot perform these
+- Clearly labeled under "For Reviewers (human)"
+
+**Detecting project commands:**
+- Check `package.json` scripts, `Makefile`, `pyproject.toml`, `.github/workflows/` for the actual lint/test/build commands
+- Use the project's real commands, not generic placeholders
