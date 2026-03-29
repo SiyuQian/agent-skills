@@ -20,7 +20,7 @@ After installation, the skills are available in all your Claude Code sessions.
 
 ## Available Skills
 
-### pr-or-mr
+### pr-creator
 
 Create and update pull requests (GitHub) or merge requests (GitLab) with well-structured descriptions.
 
