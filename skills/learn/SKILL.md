@@ -1,5 +1,5 @@
 ---
-name: article-digest
+name: learn
 description: >
   Summarize any single article, document, or web page into a standalone HTML digest
   file with reader-mode styling. MUST use this skill — not raw summarization — whenever
@@ -12,7 +12,7 @@ description: >
   or data/CSV analysis.
 ---
 
-# Article Digest
+# Learn
 
 Generate a clean, reader-mode HTML digest from a single content source. The digest
 captures the article's core argument, key points, and important visuals in a format
