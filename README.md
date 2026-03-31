@@ -41,6 +41,26 @@ Enforces the [Google Go Style Guide](https://google.github.io/styleguide/go/) wh
 - Includes 8 detailed reference docs (naming, errors, testing, concurrency, imports, interfaces, commentary, language patterns)
 - Works for both writing new Go code and reviewing existing code
 
+### learn
+
+Summarize any article, document, or web page into a standalone HTML digest with reader-mode styling.
+
+- Supports URLs, PDFs, .docx, .md, .txt, papers, reports, and blog posts
+- Produces a clean, shareable HTML file with key points and structure
+- Bilingual trigger support (English and Chinese)
+
+**Triggers on:** "summarize this", "key points", "takeaways", "digest", "TL;DR", "总结", "摘要", "要点", and more.
+
+### news-digest
+
+Fetch and summarize current news into a structured briefing across categories like International, AI, Technology, and Economics.
+
+- Uses RSS feeds as the primary data source for token efficiency
+- Supports English and Chinese output
+- Covers multiple domains: AI, tech, economics, international affairs
+
+**Triggers on:** "news summary", "daily briefing", "top stories", "catch me up", "AI news", "今日新闻", "本周新闻", and more.
+
 ## Awesome Skills & Plugins
 
 Other great Claude Code skills and plugins worth checking out:
