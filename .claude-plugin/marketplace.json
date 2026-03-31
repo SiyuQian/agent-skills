@@ -8,7 +8,7 @@
     {
       "name": "siyu",
       "description": "Curated collection of Claude Code skills for daily development workflows",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "source": "./"
     }
   ]
